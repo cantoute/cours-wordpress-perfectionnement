@@ -6,47 +6,6 @@
 
 ---
 
-- [Sécurité](#securite)
-  - [De base](#de-base)
-  - [¡¡¡ Attention à toujours laisser `.php` !!!](#%C2%A1%C2%A1%C2%A1-attention-a-toujours-laisser-php-)
-  - [Au minimum, faites au moins un export de votre base de données régulièrement.](#au-minimum-faites-au-moins-un-export-de-votre-base-de-données-régulièrement)
-  - [Mise à jour](#mise-a-jour)
-- [Thème (theme)](#theme-theme)
-  - [`style.css`](#stylecss)
-  - [`functions.php`](#functionsphp)
-  - [`index.php`](#indexphp)
-  - [`front-page.php`](#front-pagephp)
-  - [`home.php`](#homephp)
-  - [`single.php`](#singlephp)
-  - [`category.php`](#categoryphp)
-  - [Typiquement vous intéresseront dans un thème :](#typiquement-vous-int%C3%A9resseront-dans-un-th%C3%A8me-)
-- [Thème enfant _(child theme)_](#thème-enfant-child-theme)
-- [Extension _(plugin)_](#extension-plugin)
-  - [bien pratiques](#bien-pratiques)
-- [Les codes courts _(shortcode)_](#les-codes-courts-shortcode)
-  - [Il est facile de créer son propre shortcode et c'est souvent la façon simple d'intervenir proprement sur un site pour des besoins spécifiques.](#il-est-facile-de-cr%C3%A9er-son-propre-shortcode-et-cest-souvent-la-fa%C3%A7on-simple-dintervenir-proprement-sur-un-site-pour-des-besoins-sp%C3%A9cifiques)
-    - [Exemple](#exemple)
-- [Widget](#widget)
-- [Performance](#performance)
-  - [SEO](#seo)
-    - [`Réglage -> Permalien` :](#réglage---permalien-)
-  - [Cache](#cache)
-  - [WP-CLI](#wp-cli)
-- [Les `hooks`](#les-hooks)
-- [The Loop](#the-loop)
-- [`WP_Query`](#wp_query)
-  - [Alternative](#alternative)
-  - [Category Parameters #Category Parameters](#category-parameters-%23category-parameters)
-  - [Simple Taxonomy Query:](#simple-taxonomy-query)
-    - [Display posts tagged with bob, under people custom taxonomy:](#display-posts-tagged-with-bob-under-people-custom-taxonomy)
-  - [Multiple Taxonomy Handling:](#multiple-taxonomy-handling)
-    - [Display posts from several custom taxonomies:](#display-posts-from-several-custom-taxonomies)
-  - [Show Posts based on a keyword search](#show-posts-based-on-a-keyword-search)
-  - [Custom SQL (SQL direct)](#custom-sql-sql-direct)
-  - [Se protéger de l'injection SQL](#se-proteger-de-linjection-sql)
-
----
-
 ## Sécurité
 
 ### De base
