@@ -4,6 +4,49 @@
 
 # Cours Wordpress Perfectionnement
 
+---
+
+- [Sécurité](#securite)
+  - [De base](#de-base)
+  - [¡¡¡ Attention à toujours laisser `.php` !!!](#%C2%A1%C2%A1%C2%A1-attention-a-toujours-laisser-php-)
+  - [Au minimum, faites au moins un export de votre base de données régulièrement.](#au-minimum-faites-au-moins-un-export-de-votre-base-de-données-régulierement)
+  - [Mise à jour](#mise-a-jour)
+- [Thème (theme)](#theme-theme)
+  - [`style.css`](#stylecss)
+  - [`functions.php`](#functionsphp)
+  - [`index.php`](#indexphp)
+  - [`front-page.php`](#front-pagephp)
+  - [`home.php`](#homephp)
+  - [`single.php`](#singlephp)
+  - [`category.php`](#categoryphp)
+  - [Typiquement vous intéresseront dans un thème :](#typiquement-vous-intéresseront-dans-un-theme-)
+- [Thème enfant _(child theme)_](#thème-enfant-_child-theme_)
+- [Extension _(plugin)_](#extension-_plugin_)
+  - [bien pratiques](#bien-pratiques)
+- [Les codes courts _(shortcode)_](#les-codes-courts-_shortcode_)
+  - [Il est facile de créer son propre shortcode et c'est souvent la façon simple d'intervenir proprement sur un site pour des besoins spécifiques.](#il-est-facile-de-creer-son-propre-shortcode-et-cest-souvent-la-façon-simple-dintervenir-proprement-sur-un-site-pour-des-besoins-spécifiques)
+    - [Exemple](#exemple)
+- [Widget](#widget)
+- [Performance](#performance)
+  - [SEO](#seo)
+    - [`Réglage -> Permalien` :](#reglage---permalien-)
+  - [Cache](#cache)
+  - [WP-CLI](#wp-cli)
+- [Les `hooks`](#les-hooks)
+- [The Loop](#the-loop)
+- [`WP_Query`](#wp_query)
+  - [Alternative](#alternative)
+  - [Category Parameters #Category Parameters](#category-parameters-%23category-parameters)
+  - [Simple Taxonomy Query:](#simple-taxonomy-query)
+    - [Display posts tagged with bob, under people custom taxonomy:](#display-posts-tagged-with-bob-under-people-custom-taxonomy)
+  - [Multiple Taxonomy Handling:](#multiple-taxonomy-handling)
+    - [Display posts from several custom taxonomies:](#display-posts-from-several-custom-taxonomies)
+  - [Show Posts based on a keyword search](#show-posts-based-on-a-keyword-search)
+  - [Custom SQL (SQL direct)](#custom-sql-sql-direct)
+  - [Se protéger de l'injection SQL](#se-proteger-de-linjection-sql)
+
+---
+
 ## Sécurité
 
 ### De base
@@ -179,6 +222,10 @@ function load_child_theme_enqueue_scripts()
 
 ## Extension _(plugin)_
 
+Les plus utilisés : https://fr.wordpress.org/plugins/browse/blocks/
+
+### bien pratiques
+
 - Show Hooks
 - Admin Columns
 - Companion Auto Update
@@ -272,3 +319,250 @@ https://wp-cli.org/fr/
 Relativement simple à installer sous linux ou sur mac, le support est limité sous windows.
 
 Il vous permettra entre autres d’effectuer des rechercher/remplacer à l’échelle du site, nécessaire lors de la mise en ligne ou du changement d’adresse/nom de domaine du site. Il vous permettra également de changer le mot de passe d’un utilisateur quand la fonction mail de votre site ne fonctionne pas. (Ex: quand votre site est en local)
+
+## Les `hooks`
+
+https://developer.wordpress.org/plugins/hooks/
+
+- Actions
+- Filters
+
+## The Loop
+
+https://codex.wordpress.org/The_Loop
+
+## `WP_Query`
+
+https://developer.wordpress.org/reference/classes/wp_query/
+
+```php
+<?php
+
+// The Query
+$the_query = new WP_Query( $args );
+
+// The Loop
+if ( $the_query->have_posts() ) {
+    echo '<ul>';
+    while ( $the_query->have_posts() ) {
+        $the_query->the_post();
+        echo '<li>' . get_the_title() . '</li>';
+    }
+    echo '</ul>';
+} else {
+    // no posts found
+}
+/* Restore original Post Data */
+wp_reset_postdata();
+```
+
+### Alternative
+
+```php
+<?php
+// the query
+$the_query = new WP_Query( $args ); ?>
+
+<?php if ( $the_query->have_posts() ) : ?>
+
+    <!-- pagination here -->
+
+    <!-- the loop -->
+    <?php while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
+        <h2><?php the_title(); ?></h2>
+    <?php endwhile; ?>
+    <!-- end of the loop -->
+
+    <!-- pagination here -->
+
+    <?php wp_reset_postdata(); ?>
+
+<?php else : ?>
+    <p><?php _e( 'Sorry, no posts matched your criteria.' ); ?></p>
+<?php endif; ?>
+```
+
+```php
+// Display posts by author, using author id:
+$query = new WP_Query( array( 'author' => 123 ) );
+
+
+// Display posts by author, using author ‘user_nicename‘:
+$query = new WP_Query( array( 'author_name' => 'rami' ) );
+
+// Display posts from several specific authors:
+$query = new WP_Query( array( 'author' => '2,6,17,38' ) );
+
+// Exclude Posts Belonging to an Author
+// Display all posts except those from an author(singular) by prefixing its id with a ‘-‘ (minus) sign:
+$query = new WP_Query( array( 'author' => -12 ) );
+
+// Multiple Author Handling
+// Display posts from multiple authors:
+$query = new WP_Query( array( 'author__in' => array( 2, 6 ) ) );
+
+// You can also exclude multiple author this way:
+$query = new WP_Query( array( 'author__not_in' => array( 2, 6 ) ) );
+
+```
+
+### Category Parameters #Category Parameters
+
+Show posts associated with certain categories.
+
+- cat (int) – use category id.
+- category_name (string) – use category slug.
+- category\_\_and (array) – use category id.
+- category\_\_in (array) – use category id.
+- category\_\_not_in (array) – use category id.
+
+```php
+// Display posts that have one category (and any children of that category), using category id:
+$query = new WP_Query( array( 'cat' => 4 ) );
+
+// Display posts that have this category (and any children of that category), using category slug:
+$query = new WP_Query( array( 'category_name' => 'staff' ) );
+
+// Display posts that have this category (not children of that category), using category id:
+$query = new WP_Query( array( 'category__in' => 4 ) );
+
+// Display posts that have several categories, using category id:
+$query = new WP_Query( array( 'cat' => '2,6,17,38' ) );
+
+// Display posts that have these categories, using category slug:
+$query = new WP_Query( array( 'category_name' => 'staff,news' ) );
+
+// Display posts that have “all” of these categories:
+$query = new WP_Query( array( 'category_name' => 'staff+news' ) );
+
+// Display all posts except those from a category by prefixing its id with a ‘-‘ (minus) sign.
+$query = new WP_Query( array( 'cat' => '-12,-34,-56' ) );
+
+// Display posts that are in multiple categories. This shows posts that are in both categories 2 and 6:
+$query = new WP_Query( array( 'category__and' => array( 2, 6 ) ) );
+
+// To display posts from either category 2 OR 6, you could use cat as mentioned above, or by using category__in (note this does not show posts from any children of these categories):
+$query = new WP_Query( array( 'category__in' => array( 2, 6 ) ) );
+
+// You can also exclude multiple categories this way:
+$query = new WP_Query( array( 'category__not_in' => array( 2, 6 ) ) );
+```
+
+### Simple Taxonomy Query:
+
+#### Display posts tagged with bob, under people custom taxonomy:
+
+```php
+$args = array(
+    'post_type' => 'post',
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'people',
+            'field'    => 'slug',
+            'terms'    => 'bob',
+        ),
+    ),
+);
+$query = new WP_Query( $args );
+```
+
+### Multiple Taxonomy Handling:
+
+#### Display posts from several custom taxonomies:
+
+```php
+$args = array(
+    'post_type' => 'post',
+    'tax_query' => array(
+        'relation' => 'AND',
+        array(
+            'taxonomy' => 'movie_genre',
+            'field'    => 'slug',
+            'terms'    => array( 'action', 'comedy' ),
+        ),
+        array(
+            'taxonomy' => 'actor',
+            'field'    => 'term_id',
+            'terms'    => array( 103, 115, 206 ),
+            'operator' => 'NOT IN',
+        ),
+    ),
+);
+$query = new WP_Query( $args );
+```
+
+### Show Posts based on a keyword search
+
+```php
+$query = new WP_Query( array( 's' => 'keyword' ) );
+```
+
+### Custom SQL (SQL direct)
+
+https://developer.wordpress.org/reference/classes/wpdb/
+
+```php
+<?php
+
+global $wpdb;
+
+$results = $wpdb->get_results(
+  "
+  SELECT *
+  FROM $wpdb->posts
+  WHERE `post_type`='post'
+  LIMIT 4
+  "
+  );
+
+// ou encore
+$results = $wpdb->get_results(
+  "
+  SELECT *
+  FROM {$wpdb->prefix}posts
+  WHERE `post_type`='post' LIMIT 4
+  "
+  );
+```
+
+est l'équivalent de
+
+```php
+$query = new WP_Query(
+    array(
+        'post_type'      => 'post',
+        'posts_per_page' => 4
+    )
+);
+```
+
+### Se protéger de l'injection SQL
+
+```php
+<?php
+$metakey   = 'Funny Phrases';
+$metavalue = "WordPress' database interface is like Sunday Morning: Easy.";
+
+$wpdb->query(
+   $wpdb->prepare(
+   "
+   INSERT INTO $wpdb->postmeta
+   ( post_id, meta_key, meta_value )
+   VALUES ( %d, %s, %s )
+   ",
+   array(
+         10,
+         $metakey,
+         $metavalue,
+      )
+   )
+);
+```
+
+Ou utiliser [wpdb::\_real_escape( string $string )](https://developer.wordpress.org/reference/classes/wpdb/_real_escape/)
+
+```php
+// Sync Server timezone with MYSQL timezone
+date_default_timezone_set('Europe/Paris');
+$wpdb->time_zone = 'Europe/Paris';
+```
