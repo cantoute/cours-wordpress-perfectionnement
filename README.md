@@ -171,8 +171,8 @@ function load_child_theme_enqueue_scripts()
     'child-theme-js', // nom unique
     get_stylesheet_directory_uri() . '/script.js', // url du script
     array('jquery'), // dépendances
-    '1.0', // version (utile pour contourner le cache)
-    true //
+    '1.0', // version (utile pour contourner le cache en chargeant /script.js?v=1.0)
+    true // charger le script en pied de page (juste avant le </body>)
   );
 }
 ```
@@ -184,13 +184,12 @@ function load_child_theme_enqueue_scripts()
 - Companion Auto Update
 - No Category Base (WPML)
 - Redirections
-- SVG Support
-- Imsanity
-- Webp Express
-
-- Side Cart WooCommerce
-- Advanced Custom Fields _(ACF)_
-- Custom Post Type
+- Imsanity - _limiter la taille des images_
+- SVG Support - _format vectoriel_
+- Webp Express - _le format WebP réduit le poids des images ~50%_
+- Side Cart WooCommerce - _permettre l'utilisation du cache de page sur une boutique._
+- Advanced Custom Fields _(ACF)_ - _gérer des options/meta pour tous les types de contenu._
+- Custom Post Type - _créer des types de contenus personnalisés_
 
 ## Les codes courts _(shortcode)_
 
