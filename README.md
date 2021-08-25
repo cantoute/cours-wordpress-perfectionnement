@@ -251,7 +251,9 @@ Rien n’empêchera plus tard de créer un widget (on pourra utiliser des listes
 
 #### `Réglage -> Permalien` :
 
-Structure personnalisée : `/%category%/%postname%`
+<img src="img/permalink.png" />
+
+Saisir dans structure personnalisée : `/%category%/%postname%`
 
 Yoast SEO (wordpress-seo) est actuellement le plugin phare, mais il faut bien penser à faire le tour de sa configuration (saisir les données relatives aux réseaux sociaux, mais aussi supprimer “Archives” des titres.
 
