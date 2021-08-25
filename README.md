@@ -244,6 +244,7 @@ Les plus utilisés : https://fr.wordpress.org/plugins/browse/blocks/
 - Side Cart WooCommerce - _permettre l'utilisation du cache de page sur une boutique._
 - Advanced Custom Fields _(ACF)_ - _gérer des options/meta pour tous les types de contenu._
 - Custom Post Type - _créer des types de contenus personnalisés_
+- WP Maintenance Mode
 
 ## Les codes courts _(shortcode)_
 
