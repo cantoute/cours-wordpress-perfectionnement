@@ -9,7 +9,7 @@
 - [Sécurité](#securite)
   - [De base](#de-base)
   - [¡¡¡ Attention à toujours laisser `.php` !!!](#%C2%A1%C2%A1%C2%A1-attention-a-toujours-laisser-php-)
-  - [Au minimum, faites au moins un export de votre base de données régulièrement.](#au-minimum-faites-au-moins-un-export-de-votre-base-de-données-régulierement)
+  - [Au minimum, faites au moins un export de votre base de données régulièrement.](#au-minimum-faites-au-moins-un-export-de-votre-base-de-données-régulièrement)
   - [Mise à jour](#mise-a-jour)
 - [Thème (theme)](#theme-theme)
   - [`style.css`](#stylecss)
@@ -19,17 +19,17 @@
   - [`home.php`](#homephp)
   - [`single.php`](#singlephp)
   - [`category.php`](#categoryphp)
-  - [Typiquement vous intéresseront dans un thème :](#typiquement-vous-intéresseront-dans-un-theme-)
-- [Thème enfant _(child theme)_](#thème-enfant-_child-theme_)
-- [Extension _(plugin)_](#extension-_plugin_)
+  - [Typiquement vous intéresseront dans un thème :](#typiquement-vous-int%C3%A9resseront-dans-un-th%C3%A8me-)
+- [Thème enfant _(child theme)_](#thème-enfant-child-theme)
+- [Extension _(plugin)_](#extension-plugin)
   - [bien pratiques](#bien-pratiques)
-- [Les codes courts _(shortcode)_](#les-codes-courts-_shortcode_)
-  - [Il est facile de créer son propre shortcode et c'est souvent la façon simple d'intervenir proprement sur un site pour des besoins spécifiques.](#il-est-facile-de-creer-son-propre-shortcode-et-cest-souvent-la-façon-simple-dintervenir-proprement-sur-un-site-pour-des-besoins-spécifiques)
+- [Les codes courts _(shortcode)_](#les-codes-courts-shortcode)
+  - [Il est facile de créer son propre shortcode et c'est souvent la façon simple d'intervenir proprement sur un site pour des besoins spécifiques.](#il-est-facile-de-cr%C3%A9er-son-propre-shortcode-et-cest-souvent-la-fa%C3%A7on-simple-dintervenir-proprement-sur-un-site-pour-des-besoins-sp%C3%A9cifiques)
     - [Exemple](#exemple)
 - [Widget](#widget)
 - [Performance](#performance)
   - [SEO](#seo)
-    - [`Réglage -> Permalien` :](#reglage---permalien-)
+    - [`Réglage -> Permalien` :](#réglage---permalien-)
   - [Cache](#cache)
   - [WP-CLI](#wp-cli)
 - [Les `hooks`](#les-hooks)
@@ -249,8 +249,7 @@ Le shortcode est un outil très utilisé pour la personnalisation de sites. De n
 Exemple : WooCommerce [woocommerce-shortcodes](https://docs.woocommerce.com/document/woocommerce-shortcodes/)
 
 ```
-[products limit="4" columns="4" orderby="popularity"
-class="quick-sale" on_sale="true" ]
+[products limit="4" columns="4" orderby="popularity" class="quick-sale" on_sale="true" ]
 ```
 
 ### Il est facile de créer son propre shortcode et c'est souvent la façon simple d'intervenir proprement sur un site pour des besoins spécifiques.
